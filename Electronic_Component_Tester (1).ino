@@ -48,7 +48,7 @@
   #include <SPI.h>
   #include <Wire.h>
   #include <Adafruit_GFX.h>
-  #include <Adafruit_SSD1306.h>
+  #include <Adafruit_SH1106.h>
 #endif
 
 // Every changing of this Makefile will result in new compiling the whole
@@ -1262,18 +1262,15 @@ byte TestKeyPin = 17;  // A3
 
 #ifdef OLED096
   #ifdef OLED_I2C
-   #define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels 
-    #define OLED_RESET 7
-  Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+  Adafruit_SH1106 display(128, 64, &Wire);
    // Adafruit_SSD1306 display(OLED_RESET);
   #else
     #define OLED_CLK   7   // D0
     #define OLED_MOSI  6   // D1
-    #define OLED_RESET 5   // RES
     #define OLED_DC    4   // DC
     #define OLED_CS    3   // CS
-    Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
+Adafruit_SH1106 display(OLED_MOSI, OLED_CLK, OLED_CS, OLED_DC);
+
   #endif
 #endif
 
@@ -1314,7 +1311,10 @@ void setup()
 
   #ifdef OLED096
     #ifdef OLED_I2C
-      display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+      display.begin(SH1106_SWITCHCAPVCC, 0x3C);
+      display.clearDisplay();
+      display.display();
+
     #else
       display.begin(SSD1306_SWITCHCAPVCC);
     #endif
