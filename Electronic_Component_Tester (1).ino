@@ -1262,6 +1262,7 @@ byte TestKeyPin = 17;  // A3
 
 #ifdef OLED096
   #ifdef OLED_I2C
+    #define OLED_ADDR 0x3C  // I2C address of the OLED display
   Adafruit_SH1106 display(128, 64, &Wire);
    // Adafruit_SSD1306 display(OLED_RESET);
   #else
